@@ -6,4 +6,6 @@
     <string name="product_name_text">Название продукта</string>
     <string name="price_text">Цена продукта</string>
     <string name="add_text">Добавить</string>
+    <string name="product_info_text">Описание продукта</string>
+    <string name="description_text">Описание</string>
 </resources>

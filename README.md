@@ -25,9 +25,16 @@
 6.  Меню с пунктом выхода из приложения **«Exit».**
 
 Screenshots:
-![](https://github.com/Slayder12/GroceryStore/blob/main/assets/1.png)
-![](https://github.com/Slayder12/GroceryStore/blob/main/assets/2.png)
-![](https://github.com/Slayder12/GroceryStore/blob/main/assets/3.png)
-![](https://github.com/Slayder12/GroceryStore/blob/main/assets/4.png)
-![](https://github.com/Slayder12/GroceryStore/blob/main/assets/5.png)
-![](https://github.com/Slayder12/GroceryStore/blob/main/assets/6.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/1-1.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/1-2.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/1-3.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/1-4.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/1-5.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/1-6.png)
+
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/2-1.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/2-2.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/2-3.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/2-4.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/2-5.png)
+![](https://github.com/Slayder12/GroceryStore/blob/main/assets/2-6.png)

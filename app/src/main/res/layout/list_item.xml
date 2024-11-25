@@ -15,7 +15,7 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageIV"
+                android:id="@+id/imageTV"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="2dp"
@@ -28,24 +28,39 @@
                 android:orientation="vertical"
                 android:layout_margin="8dp">
 
-                <TextView
-                    android:id="@+id/productNameTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Название продукта"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_margin="8dp" />
+                    <TextView
+                        android:id="@+id/productNameTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Продукт"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:layout_margin="4dp" />
 
-                <TextView
-                    android:id="@+id/priceTV"
+                <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:hint="Цена"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:layout_margin="8dp" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/priceTextTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Цена: "
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:layout_margin="4dp" />
+
+                    <TextView
+                        android:id="@+id/priceTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:hint="Цена"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_margin="4dp" />
+
+                </TableRow>
 
               </LinearLayout>
 

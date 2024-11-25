@@ -8,7 +8,7 @@
     tools:context=".StoreActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarMain"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"/>
@@ -19,10 +19,10 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageIV"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
+            android:id="@+id/imageTV"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_margin="4dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/icon_image" />
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/product_name_text"
             android:textSize="18sp"
-            android:layout_margin="8dp" />
+            android:layout_margin="2dp" />
 
         <EditText
             android:id="@+id/priceET"
@@ -48,7 +48,15 @@
             android:layout_height="wrap_content"
             android:hint="@string/price_text"
             android:textSize="18sp"
-            android:layout_margin="8dp" />
+            android:layout_margin="2dp" />
+
+        <EditText
+            android:id="@+id/descriptionET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/description_text"
+            android:textSize="18sp"
+            android:layout_margin="2dp" />
 
         </LinearLayout>
 

@@ -1,25 +1,29 @@
 package com.example.grocerystore
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
-class StoreActivity : AppCompatActivity() {
+class StoreActivity : AppCompatActivity(), Removable, Updatable {
+
+    var product: Product? = null
 
     private val GALLARY_REQUEST = 1
-    var bitmap: Bitmap? = null
+    var productUri: Uri? = null
+    var listAdapter: ListAdapter? = null
+    var item: Int? = 0
+
     var productList: MutableList<Product> = mutableListOf()
+    var check = true
+
 
     private lateinit var toolbarMain: Toolbar
     private lateinit var listViewLV: ListView
@@ -27,6 +31,7 @@ class StoreActivity : AppCompatActivity() {
     private lateinit var imageIV: ImageView
     private lateinit var productNameET: EditText
     private lateinit var priceET: EditText
+    private lateinit var descriptionET: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +49,22 @@ class StoreActivity : AppCompatActivity() {
 
             createProduct()
 
-            val listAdapter = ListAdapter(this@StoreActivity, productList)
+            listAdapter = ListAdapter(this@StoreActivity, productList)
             listViewLV.adapter = listAdapter
-            listAdapter.notifyDataSetChanged()
-
+            listAdapter?.notifyDataSetChanged()
             clearEditFields()
+            listAdapter?.notifyDataSetChanged()
+        }
 
+        listViewLV.setOnItemClickListener { _, _, position, _ ->
+            product = listAdapter!!.getItem(position)
+            item = position
+            //val dialog = MyAlertDialog()
+            //val args = Bundle()
+//            args.putSerializable("product", product)
+//            dialog.arguments = args
+//            dialog.show(supportFragmentManager, "custom")
+            update(product!!)
         }
 
     }
@@ -57,42 +72,40 @@ class StoreActivity : AppCompatActivity() {
     private fun createProduct() {
         val productName = productNameET.text.toString()
         val price = priceET.text.toString()
-        val image = bitmap
-        val product = Product(productName, price, image)
-        productList.add(product)
+        val description = descriptionET.text.toString()
+        val image = productUri.toString()
+        val product = Product(productName, price, description, image)
+        productList.add(product!!)
+        productUri = null
     }
 
     private fun clearEditFields() {
         productNameET.text.clear()
         priceET.text.clear()
+        descriptionET.text.clear()
         imageIV.setImageResource(R.drawable.icon_image)
     }
 
     private fun init() {
-        toolbarMain = findViewById(R.id.toolbarMain)
+        toolbarMain = findViewById(R.id.toolbar)
         setSupportActionBar(toolbarMain)
         title = getString(R.string.product_list_text)
 
         listViewLV = findViewById(R.id.listViewLV)
         saveBTN = findViewById(R.id.saveBTN)
-        imageIV = findViewById(R.id.imageIV)
+        imageIV = findViewById(R.id.imageTV)
         productNameET = findViewById(R.id.productNameET)
         priceET = findViewById(R.id.priceET)
+        descriptionET = findViewById(R.id.descriptionET)
     }
 
     override fun onActivityResult(requestCode: Int,resultCode: Int,data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        imageIV = findViewById(R.id.imageIV)
+        imageIV = findViewById(R.id.imageTV)
         when (requestCode) {
             GALLARY_REQUEST -> if (resultCode == RESULT_OK) {
-                val selectedImage: Uri? = data?.data
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
-                    imageIV.setImageBitmap(bitmap)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-                imageIV.setImageBitmap(bitmap)
+                productUri = data?.data
+                imageIV.setImageURI(productUri)
                
             }
         }
@@ -107,6 +120,19 @@ class StoreActivity : AppCompatActivity() {
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun remove(product: Product) {
+        listAdapter?.remove(product)
+    }
+
+    override fun update(product: Product) {
+        val intent = Intent(this, DescriptionActivity::class.java)
+        intent.putExtra("product", product)
+        intent.putExtra("productList", this.productList as ArrayList<Product>)
+        intent.putExtra("position", item)
+        intent.putExtra("check", check)
+        startActivity(intent)
     }
 
 }
