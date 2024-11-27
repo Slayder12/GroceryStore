@@ -9,21 +9,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
 class StoreActivity : AppCompatActivity(), Removable, Updatable {
 
     var product: Product? = null
-
     private val GALLARY_REQUEST = 1
     var productUri: Uri? = null
     var listAdapter: ListAdapter? = null
     var item: Int? = 0
-
     var productList: MutableList<Product> = mutableListOf()
     var check = true
-
 
     private lateinit var toolbarMain: Toolbar
     private lateinit var listViewLV: ListView
@@ -59,31 +57,13 @@ class StoreActivity : AppCompatActivity(), Removable, Updatable {
         listViewLV.setOnItemClickListener { _, _, position, _ ->
             product = listAdapter!!.getItem(position)
             item = position
-            //val dialog = MyAlertDialog()
-            //val args = Bundle()
-//            args.putSerializable("product", product)
-//            dialog.arguments = args
-//            dialog.show(supportFragmentManager, "custom")
-            update(product!!)
+            val dialog = MyAlertDialog()
+            val args = Bundle()
+            args.putSerializable("product", product)
+            dialog.arguments = args
+            dialog.show(supportFragmentManager, "custom")
         }
 
-    }
-
-    private fun createProduct() {
-        val productName = productNameET.text.toString()
-        val price = priceET.text.toString()
-        val description = descriptionET.text.toString()
-        val image = productUri.toString()
-        val product = Product(productName, price, description, image)
-        productList.add(product!!)
-        productUri = null
-    }
-
-    private fun clearEditFields() {
-        productNameET.text.clear()
-        priceET.text.clear()
-        descriptionET.text.clear()
-        imageIV.setImageResource(R.drawable.icon_image)
     }
 
     private fun init() {
@@ -99,14 +79,41 @@ class StoreActivity : AppCompatActivity(), Removable, Updatable {
         descriptionET = findViewById(R.id.descriptionET)
     }
 
-    override fun onActivityResult(requestCode: Int,resultCode: Int,data: Intent?) {
+    override fun onResume() {
+        super.onResume()
+        check = intent.extras?.getBoolean("newCheck") ?: true
+        if (!check) {
+            productList = intent.getSerializableExtra("list") as MutableList<Product>
+            listAdapter = ListAdapter(this, productList)
+            check = true
+        }
+        listViewLV.adapter = listAdapter
+    }
+
+    private fun createProduct() {
+        val productName = productNameET.text.toString()
+        val price = priceET.text.toString()
+        val description = descriptionET.text.toString()
+        val image = productUri.toString()
+        val product = Product(productName, price, description, image)
+        productList.add(product)
+        productUri = null
+    }
+
+    private fun clearEditFields() {
+        productNameET.text.clear()
+        priceET.text.clear()
+        descriptionET.text.clear()
+        imageIV.setImageResource(R.drawable.icon_image)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         imageIV = findViewById(R.id.imageTV)
         when (requestCode) {
             GALLARY_REQUEST -> if (resultCode == RESULT_OK) {
                 productUri = data?.data
                 imageIV.setImageURI(productUri)
-               
             }
         }
     }
@@ -115,9 +122,17 @@ class StoreActivity : AppCompatActivity(), Removable, Updatable {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val backMenu = menu?.findItem(R.id.backMenuMain)
+            backMenu?.isVisible = false
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.exitMenuMain) {
-            finish()
+            Toast.makeText(this, "Программа завершена", Toast.LENGTH_SHORT).show()
+            finishAffinity()
         }
         return super.onOptionsItemSelected(item)
     }
