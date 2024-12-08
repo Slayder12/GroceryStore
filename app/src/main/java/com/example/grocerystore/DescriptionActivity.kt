@@ -74,7 +74,6 @@ class DescriptionActivity : AppCompatActivity() {
             val intent = Intent(this, StoreActivity::class.java)
             intent.putExtra("list", list as ArrayList<Product>)
             intent.putExtra("newCheck", check1)
-            //Toast()
             startActivity(intent)
 
         }

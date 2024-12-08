@@ -37,6 +37,10 @@ class StoreActivity : AppCompatActivity(), Removable, Updatable {
 
         init()
 
+        listAdapter = ListAdapter(this@StoreActivity, productList)
+        listViewLV.adapter = listAdapter
+        listAdapter?.notifyDataSetChanged()
+
         imageIV.setOnClickListener {
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.type = "image/*"
@@ -44,12 +48,7 @@ class StoreActivity : AppCompatActivity(), Removable, Updatable {
         }
 
         saveBTN.setOnClickListener {
-
             createProduct()
-
-            listAdapter = ListAdapter(this@StoreActivity, productList)
-            listViewLV.adapter = listAdapter
-            listAdapter?.notifyDataSetChanged()
             clearEditFields()
             listAdapter?.notifyDataSetChanged()
         }

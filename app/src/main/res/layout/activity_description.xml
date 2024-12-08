@@ -75,7 +75,7 @@
     </TableRow>
 
     <TextView
-        android:id="@+id/InfoTextTV"
+        android:id="@+id/infoTextTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Описание: "
